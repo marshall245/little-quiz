@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<h1>{{ quiz.quiz_title }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'quizapp:quiz_solution' quiz.id %}" method="post">
+{% csrf_token %}
+{% for question in quiz.question_set.all %}
+    <fieldset>
+        <legend>{{ question.question_text }}</legend><br>
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="{{ question.question_name }}" id="{{ question.question_name }}{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="{{ question.question_name }}{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+    </fieldset><br><br>
+{% endfor %}
+<input type="submit" value="Submit">
+</form>
