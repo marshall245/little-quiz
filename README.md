@@ -32,7 +32,7 @@ $ docker exec -it little-quiz /bin/sh
 2. From within the container run
 ```bash
 # add an admin user; {USERNAME} :: {EMAIL} :: {PASSWORD}
-(inner-prompt)$ python manage.py createsuperuser
+(inner-prompt)$ /venv/bin/python manage.py createsuperuser
 ```
 
 
