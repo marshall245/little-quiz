@@ -10,19 +10,23 @@
 $ git clone https://github.com/marshall245/little-quiz.git
 ```
 
-2. Using Docker build and run the image
+
+2. Using Docker, build and run the image
 ```bash
 $ cd little-quiz
 $ docker build -t little-quiz .
 $ docker run -d -p 8000:8000 --name little-quiz -t little-quiz
 ```
 
+
 3. Visiting the `http://localhost:8000/admin` should now work
+
 
 4. Access image at a shell prompt to create an admin user
 ```bash
 $ docker exec -it little-quiz /bin/sh
 ```
+
 
 5. From within the container run
 ```bash
@@ -30,8 +34,10 @@ $ docker exec -it little-quiz /bin/sh
 (inner-prompt)$ python manage.py createsuperuser
 ```
 
+
 6. Clean up
 ```bash
 $ docker stop little-quiz
 $ docker rm little-quiz
 ```
+
