@@ -37,6 +37,7 @@ EXPOSE 8000
 
 # Conduct initial database migration
 RUN /venv/bin/python manage.py makemigrations polls && \
+    /venv/bin/python manage.py makemigrations quizapp && \
     /venv/bin/python manage.py migrate
 
 
