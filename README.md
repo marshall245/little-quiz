@@ -2,6 +2,7 @@
 
 ## Run Locally
 
+###### Basic Setup
 *Note : Requires Docker*
 
 1. Get the code
@@ -22,20 +23,25 @@ $ docker run -d -p 8000:8000 --name little-quiz -t little-quiz
 3. Visiting the `http://localhost:8000/admin` should now work
 
 
-4. Access image at a shell prompt to create an admin user
+###### Create an Admin User and Manage App
+1. Access image at a shell prompt to create an admin user
 ```bash
 $ docker exec -it little-quiz /bin/sh
 ```
 
 
-5. From within the container run
+2. From within the container run
 ```bash
 # add an admin user; {USERNAME} :: {EMAIL} :: {PASSWORD}
 (inner-prompt)$ python manage.py createsuperuser
 ```
 
 
-6. Clean up
+3. You can now go back to `http://localhost:8000/admin` and log in as an admin user. Here you can add dataabase entries, users, and user groups.
+
+
+###### Clean Up
+6. Use docker to stop and delete the image
 ```bash
 $ docker stop little-quiz
 $ docker rm little-quiz
