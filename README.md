@@ -40,7 +40,7 @@ $ docker exec -it little-quiz /bin/sh
 
 
 #### Clean Up
-6. Use docker to stop and delete the image
+1. Use docker to stop and delete the image
 ```bash
 $ docker stop little-quiz
 $ docker rm little-quiz
