@@ -14,6 +14,7 @@ RUN set -ex \
             pcre-dev \
             postgresql-dev \
     && apk add sqlite \
+    && apk add vim \
     && pyvenv /venv \
     && /venv/bin/pip install -U pip \
     && LIBRARY_PATH=/lib:/usr/lib /bin/sh -c "/venv/bin/pip install --no-cache-dir -r /requirements.txt" \
@@ -28,7 +29,7 @@ RUN set -ex \
     && apk del .build-deps
 
 # Copy your application code to the container (make sure you create a .dockerignore file if any large files or directories should be excluded)
-RUN mkdir /working/
+RUN mkdir /working/ /static/
 WORKDIR /working/
 ADD . /working/
 
@@ -38,6 +39,15 @@ EXPOSE 8000
 # Conduct initial database migration
 RUN /venv/bin/python manage.py migrate
 
+# Add any custom, static environment variables needed by Django or your settings file here:
+ENV DJANGO_SETTINGS_MODULE=little_quiz.settings
 
+# uWSGI configuration (customize as needed):
+ENV UWSGI_VIRTUALENV=/venv UWSGI_WSGI_FILE=little_quiz/wsgi.py UWSGI_HTTP=:8000 UWSGI_MASTER=1 UWSGI_WORKERS=2 UWSGI_THREADS=8 UWSGI_UID=1000 UWSGI_GID=2000 UWSGI_LAZY_APPS=1 UWSGI_WSGI_ENV_BEHAVIOR=holy
 
-CMD ["/venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
+RUN DATABASE_URL=none /venv/bin/python manage.py collectstatic --noinput
+
+# Start uWSGI
+CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive"]
+# CMD ["/venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
