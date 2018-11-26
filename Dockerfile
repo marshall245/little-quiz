@@ -50,4 +50,3 @@ RUN DATABASE_URL=none /venv/bin/python manage.py collectstatic --noinput
 
 # Start uWSGI
 CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive"]
-# CMD ["/venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
