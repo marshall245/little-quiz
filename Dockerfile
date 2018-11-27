@@ -15,6 +15,7 @@ RUN set -ex \
             postgresql-dev \
     && apk add sqlite \
     && apk add vim \
+    && apk add postgresql-client \
     && pyvenv /venv \
     && /venv/bin/pip install -U pip \
     && LIBRARY_PATH=/lib:/usr/lib /bin/sh -c "/venv/bin/pip install --no-cache-dir -r /requirements.txt" \

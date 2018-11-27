@@ -4,7 +4,7 @@ from django.db import migrations
 
 import datetime
 
-from quizapp.models import Category, Quiz, Question, Choice
+from quizapp.models import Category
 
 
 def prep_dev_state_quiz(apps, schema_editor):
@@ -160,5 +160,5 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(prep_dev_state_quiz),
-        migrations.RunPython(prep_dev_soccer_quiz)
+        migrations.RunPython(prep_dev_soccer_quiz),
     ]
