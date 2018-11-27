@@ -36,8 +36,8 @@ ADD . /working/
 # uWSGI will listen on this port
 EXPOSE 8000
 
-# Conduct initial database migration
-RUN /venv/bin/python manage.py migrate
+# # Conduct initial database migration
+# RUN /venv/bin/python manage.py migrate
 
 # Add any custom, static environment variables needed by Django or your settings file here:
 ENV DJANGO_SETTINGS_MODULE=little_quiz.settings
@@ -47,6 +47,10 @@ ENV UWSGI_VIRTUALENV=/venv UWSGI_WSGI_FILE=little_quiz/wsgi.py UWSGI_HTTP=:8000 
 
 # Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
 RUN DATABASE_URL=none /venv/bin/python manage.py collectstatic --noinput
+
+# Set entry point to container
+RUN chmod +x /working/docker-entrypoint.sh
+ENTRYPOINT ["/working/docker-entrypoint.sh"]
 
 # Start uWSGI
 CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive"]
