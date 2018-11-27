@@ -14,8 +14,7 @@ $ git clone https://github.com/marshall245/little-quiz.git
 2. Using Docker, build and run the image
 ```bash
 $ cd little-quiz
-$ docker build -t little-quiz .
-$ docker run -d -p 8000:8000 --name little-quiz -t little-quiz
+$ docker-compose up --build -d
 ```
 
 
@@ -23,9 +22,14 @@ $ docker run -d -p 8000:8000 --name little-quiz -t little-quiz
 
 
 #### Create an Admin User and Manage App
-1. Access image at a shell prompt to create an admin user
+1. Find your container. Search under column name in the output to find it.
 ```bash
-$ docker exec -it little-quiz /bin/sh
+$ docker container ls
+```
+
+2. Access image at a shell prompt to create an admin user. Use the name from (1) in {NAME} below
+```bash
+$ docker exec -it {NAME} /bin/sh
 ```
 
 
@@ -42,7 +46,28 @@ $ docker exec -it little-quiz /bin/sh
 #### Clean Up
 1. Use docker to stop and delete the image
 ```bash
-$ docker stop little-quiz
-$ docker rm little-quiz
+$ docker-compose down
+$ docker-compose rm -fv
 ```
 
+
+#### Purge
+You can thoroughly purge the necessary docker state using the following commands
+    
+    
+###### Containers
+    - docker container ls
+    - docker container stop [containers]
+    - docker container prune
+
+    
+###### Volumes
+_Do not forget to remove the directories these are pointed to_
+
+    - docker volume ls
+    - docker volume rm [volumes]
+    
+    
+###### Images
+    - docker image ls
+    - docker image rm [images]
