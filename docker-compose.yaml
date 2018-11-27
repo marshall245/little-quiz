@@ -20,6 +20,7 @@ services:
       DATABASE_URL: postgres://postgres:thisthis@db/postgres
       REDIS_URL: redis://redis
       DJANGO_MANAGEPY_MIGRATE: "on"
+      DJANGO_MANAGEPY_COLLECTSTATIC: "on"
     build:
       context: .
       dockerfile: ./Dockerfile
