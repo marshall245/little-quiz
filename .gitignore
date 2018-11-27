@@ -120,3 +120,6 @@ dmypy.json
 # Mac
 .DS_Store
 
+# Postgres + Docker
+.pg_data
+

@@ -1,0 +1,2 @@
+# Ignore the mounted .pg_data volume
+.pg_data/
